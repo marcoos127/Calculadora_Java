@@ -17,8 +17,16 @@ public class FuncoesMatematicas {
 		double totdiv = g / h;
 		return totdiv;
 	}
-	public double mod(double i, double j) {
-		double totmod = i % j;
+	public double mod(double j) {
+		double totmod = j / 100;
 		return totmod;
+	}
+	public double raiz(double r) {
+		r = Math.sqrt(r);
+		return r;
+	}
+	public double frac(double l) {
+		double totfrac = 1 / l;
+		return totfrac;
 	}
 }

@@ -18,13 +18,13 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JTextField;
 
 import calculos.FuncoesMatematicas;
-
+import java.lang.*;
 public class Calculadora extends JFrame {
 	
 	ButtonGroup tipo = new ButtonGroup ();
 	
 	JMenu Exibir = new JMenu("Exibir");
-	JRadioButtonMenuItem radipadrao = new JRadioButtonMenuItem("Padão");
+	JRadioButtonMenuItem radipadrao = new JRadioButtonMenuItem("Padrão");
 	JRadioButtonMenuItem radicienti = new JRadioButtonMenuItem("Cientifica");
 	JRadioButtonMenuItem radiprograma = new JRadioButtonMenuItem("Programador");
 	JRadioButtonMenuItem radiestatist = new JRadioButtonMenuItem("Estatistica");
@@ -167,6 +167,20 @@ public class Calculadora extends JFrame {
 		backsp.setMargin(new Insets(1,1,1,1));
 		backsp.setBounds(20, 125, 30, 25);
 		paine.add(backsp);
+		backsp.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent bakcspace) {
+				String str = visor.getText();
+		        StringBuilder w = new StringBuilder(str);
+				if(str.length() > 1) {
+			        str = String.valueOf( w.deleteCharAt(str.length() - 1) );
+			        visor.setText(str);
+				}
+				else {
+					visor.setText("0");
+				}
+			}
+	});		
+		
 		btnCE.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		btnCE.setMargin(new Insets(1,1,1,1));
 		btnCE.setBounds(55, 125, 30, 25);
@@ -195,12 +209,27 @@ public class Calculadora extends JFrame {
 		btnmom.setMargin(new Insets(1,1,1,1));
 		btnmom.setBounds(125, 125, 30, 25);
 		paine.add(btnmom);
-		
+		btnmom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+					visor.setText("-" + visor.getText());
+				
+			}
+		});		
 		btnraiz.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		btnraiz.setMargin(new Insets(1,1,1,1));
 		btnraiz.setBounds(160, 125, 30, 25);
 		paine.add(btnraiz);
-		
+		btnraiz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent r) {
+				valor1 = Double.parseDouble(visor.getText());
+				sinal = "raiz";
+				if(sinal.equals("raiz")) {
+					visor.setText(mat.raiz(valor1) + "");
+				}
+			}
+		});
+				
 		//terceira fileira
 		sete.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		sete.setMargin(new Insets(1,1,1,1));
@@ -273,9 +302,13 @@ public class Calculadora extends JFrame {
 		paine.add(btnporc);
 		btnporc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent md) {
-				valor1 = Double.parseDouble(visor.getText());
+				valor1 = Double.parseDouble(visor.getText());				
+				
 				sinal = "mod";
-				visor.setText("0");
+				
+				if(sinal.equals("mod")) {
+					visor.setText(mat.mod(valor1)+ "");
+				}
 			}
 		});
 		//quarta fileira
@@ -345,7 +378,15 @@ public class Calculadora extends JFrame {
 		btnfra.setMargin(new Insets(1,1,1,1));
 		btnfra.setBounds(160, 185, 30, 25);
 		paine.add(btnfra);
-		
+		btnfra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent fra) {
+				valor1 = Double.parseDouble(visor.getText());
+				sinal = "fra";
+				 if(sinal.equals("fra")) {
+						visor.setText(mat.frac(valor1) + "");
+					}
+			}
+		});
 		//quinta fileira
 		
 		um.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -421,17 +462,14 @@ public class Calculadora extends JFrame {
 				if(sinal.equals("soma")) {
 					visor.setText(mat.soma(valor1, valor2) + "");
 				}
-				else if(sinal.equals("subt")) {
+				if(sinal.equals("subt")) {
 					visor.setText(mat.subt(valor1, valor2) + "");
 				}
-				else if(sinal.equals("mult")) {
+				if(sinal.equals("mult")) {
 					visor.setText(mat.mult(valor1, valor2) + "");
 				}
-				else if(sinal.equals("div")) {
+				if(sinal.equals("div")) {
 					visor.setText(mat.div(valor1, valor2)+ "");
-				}
-				else if(sinal.equals("mod")) {
-					visor.setText(mat.mod(valor1, valor2)+ "");
 				}
 			}
 		});
@@ -441,12 +479,27 @@ public class Calculadora extends JFrame {
 		zero.setMargin(new Insets(1,1,1,1));
 		zero.setBounds(20, 245, 65, 25);
 		paine.add(zero);
-		
+		zero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(visor.getText().equals("0")) {
+					visor.setText("0");
+				}else {
+					visor.setText(visor.getText() + "0");
+				}
+				
+				
+			}
+		});		
 		btnvirgula.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnvirgula.setMargin(new Insets(1,1,1,1));
 		btnvirgula.setBounds(90, 245, 30, 25);
 		paine.add(btnvirgula);
-		
+		btnvirgula.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent virg) {
+				visor.setText(visor.getText() + ".");
+			}
+		});		
 		btnfmais.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnfmais.setMargin(new Insets(1,1,1,1));
 		btnfmais.setBounds(125, 245, 30, 25);

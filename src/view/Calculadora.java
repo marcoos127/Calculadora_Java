@@ -82,7 +82,7 @@ public class Calculadora extends JFrame {
 	FuncoesMatematicas mat = new FuncoesMatematicas();
 	String sinal = null;
 	double valor1 = 0, valor2 = 0;
-	
+	double memoria = 0;
 	public Calculadora(){
 		super("calculadora");
 		
@@ -131,17 +131,36 @@ public class Calculadora extends JFrame {
 		btnMC.setMargin(new Insets(1,1,1,1));
 		btnMC.setBounds(20, 95, 30,25);
 		paine.add(btnMC);
-		
+		btnMC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				memoria = 0;
+				sinal = " ";
+				visor.setText("");
+			}
+		});		
 		btnMR.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		btnMR.setMargin(new Insets(1,1,1,1));
 		btnMR.setBounds(55, 95, 30,25);
 		paine.add(btnMR);
+		btnMR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sinal = " ";
+				visor.setText("" + memoria);
+			}
+		});
 		
 		btnMS.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		btnMS.setMargin(new Insets(1,1,1,1));
 		btnMS.setBounds(90, 95, 30,25);
 		paine.add(btnMS);
-		
+		btnMS.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				memoria = Double.parseDouble(visor.getText());
+				sinal = " ";
+				visor.setText("" + memoria);
+
+			}
+		});		
 		btnMais.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		btnMais.setMargin(new Insets(1,1,1,1));
 		btnMais.setBounds(125, 95, 30,25);
